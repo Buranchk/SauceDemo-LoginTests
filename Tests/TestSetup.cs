@@ -3,11 +3,11 @@ using Drivers;
 
 namespace Tests
 {
-    public abstract class TestSetup : IDisposable
+    public class TestSetup : IDisposable
     {
         public IWebDriver Driver { get; }
 
-        protected TestSetup()
+        public TestSetup()
         {
             Driver = DriverFactory.GetDriver("firefox");
             DriverFactory.Maximize();
@@ -15,21 +15,7 @@ namespace Tests
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                DriverFactory.QuitDriver();
-            }
-        }
-
-        ~TestSetup()
-        {
-            Dispose(false);
+            DriverFactory.QuitDriver();
         }
     }
 }
