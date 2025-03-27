@@ -10,16 +10,12 @@ namespace Drivers
 
         public static IWebDriver GetDriver(string browser = "chrome")
         {
-            if (driver.Value == null)
+            return driver.Value ?? (driver.Value = browser.ToLower() switch
             {
-                driver.Value = browser.ToLower() switch
-                {
-                    "firefox" => new FirefoxDriver(new FirefoxOptions()),
-                    "chrome" => new ChromeDriver(new ChromeOptions()),
-                    _ => throw new ArgumentException($"Unsupported browser: {browser}")
-                };
-            }
-            return driver.Value;
+                "firefox" => new FirefoxDriver(new FirefoxOptions()),
+                "chrome" => new ChromeDriver(new ChromeOptions()),
+                _ => throw new ArgumentException($"Unsupported browser: {browser}")
+            });
         }
 
         public static void Maximize()

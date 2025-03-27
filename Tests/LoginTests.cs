@@ -1,5 +1,6 @@
 using FluentAssertions;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools;
 using Pages;
 using TestLogs;
 using Xunit.Abstractions;
@@ -27,7 +28,7 @@ namespace Tests
             _loginPage.ClickLogin();
             
             var errorMsg = _loginPage.GetErrorMessage();
-            Logger.Log.Information("Captured error message: {ErrorMessage}", errorMsg);
+            Logger.Log.Information("Captured error message: {ErrorMessage}", errorMsg); //No levels!
 
 
             _loginPage.GetErrorMessage().Should().Contain("Username is required");
